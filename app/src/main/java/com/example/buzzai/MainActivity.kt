@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
             val fragment: Fragment = when (item.itemId) {
                 R.id.nav_home -> HomeFragment()
                 R.id.nav_studio -> StudioFragment()
-                R.id.nav_create -> UretFragment() // Bak, burayı 'nav_create' yaptık!
                 R.id.nav_templates -> TemplatesFragment()
                 R.id.nav_profile -> ProfileFragment() // Senin menünde profil de var, onu da ekledik
                 else -> HomeFragment() // Hiçbiri değilse ana sayfaya dön
