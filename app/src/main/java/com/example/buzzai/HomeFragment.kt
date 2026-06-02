@@ -47,6 +47,6 @@ class HomeFragment : Fragment() {
 
         // DİKKAT: R.id.navigation_studio kısmı senin alt menü dosyan (bottom_nav_menu.xml) içindeki Stüdyo ikonunun id'si olmalı.
         // Eğer id farklıysa (örneğin R.id.studioFragment) burayı ona göre değiştirmelisin.
-        bottomNav?.selectedItemId = R.id.nav_studio
+        bottomNav?.selectedItemId = R.id.nav_create
     }
 }
