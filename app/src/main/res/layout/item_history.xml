@@ -11,6 +11,6 @@
     <ImageView
         android:id="@+id/ivHistoryItem"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         android:scaleType="centerCrop" />
 </com.google.android.material.card.MaterialCardView>

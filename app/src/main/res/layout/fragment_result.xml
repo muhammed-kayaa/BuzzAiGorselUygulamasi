@@ -9,11 +9,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="450dp"
+            android:layout_marginBottom="24dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="0dp"
             app:cardBackgroundColor="#111111">
@@ -26,78 +28,46 @@
                 android:contentDescription="Generated image" />
         </androidx.cardview.widget.CardView>
 
+        <!-- YAN YANA İNDİR VE PAYLAŞ BUTONLARI -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:gravity="center_vertical">
+            android:weightSum="2"
+            android:layout_marginHorizontal="8dp">
 
             <Button
                 android:id="@+id/btnDownload"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
                 android:backgroundTint="#16161D"
-                android:text="Galeriye İndir"
+                android:text="İndir"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
-                app:cornerRadius="12dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="14dp"
                 app:icon="@android:drawable/stat_sys_download"
-                app:iconTint="#A855F7" />
+                app:iconTint="#FFFFFF" />
 
-            <View
+            <Button
+                android:id="@+id/btnShare"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-
-            <RadioGroup
-                android:id="@+id/rgPlatform"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/rbInstagram"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Insta"
-                    android:textColor="#FFFFFF"
-                    android:buttonTint="#A855F7"
-                    android:checked="true" />
-
-                <RadioButton
-                    android:id="@+id/rbTikTok"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:buttonTint="#A855F7"
-                    android:text="TikTok"
-                    android:textColor="#FFFFFF" />
-            </RadioGroup>
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="#A855F7"
+                android:text="Paylaş"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="14dp"
+                app:icon="@android:drawable/ic_menu_share"
+                app:iconTint="#FFFFFF" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btnGenerateCaption"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="#A855F7"
-            android:text="Yapay Zeka ile Metin Yaz"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            app:cornerRadius="12dp" />
-
-        <TextView
-            android:id="@+id/tvGenerated"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            android:padding="16dp"
-            android:background="@drawable/rounded_bg_dark"
-            android:text="" />
 
         <View
             android:layout_width="match_parent"

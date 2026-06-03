@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.cardview.widget.CardView
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButton
 
@@ -19,6 +21,8 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
+
+        val mainScrollView = view.findViewById<NestedScrollView>(R.id.mainScrollView)
 
         view.findViewById<MaterialButton>(R.id.btnUltraPlan)?.setOnClickListener {
             if (activity is MainActivity) {
@@ -37,21 +41,33 @@ class HomeFragment : Fragment() {
             }
         } catch (e: Exception) { e.printStackTrace() }
 
+        // ====================================================================
+        // --- YENİ: YUMUŞAK KAYDIRMA (SCROLL) İŞLEMLERİ ---
+        // ====================================================================
+
+        // 2.0 Strategy Butonu -> Trendler başlığına kaydırır
         view.findViewById<CardView>(R.id.cardStrategy)?.setOnClickListener {
-            Toast.makeText(requireContext(), "2.0 Strategy Özel Sayfası Açılacak", Toast.LENGTH_SHORT).show()
+            val targetView = view.findViewById<TextView>(R.id.titleTrendler)
+            mainScrollView.smoothScrollTo(0, targetView.top - 50)
         }
+
+        // AI İşletme Butonu -> İşletme başlığına kaydırır
         view.findViewById<CardView>(R.id.cardBusiness)?.setOnClickListener {
-            Toast.makeText(requireContext(), "AI İşletme Özel Sayfası Açılacak", Toast.LENGTH_SHORT).show()
+            val targetView = view.findViewById<TextView>(R.id.titleIsletme)
+            mainScrollView.smoothScrollTo(0, targetView.top - 50)
         }
+
+        // AI Kişisel Butonu -> Kişisel başlığına kaydırır
         view.findViewById<CardView>(R.id.cardPersonal)?.setOnClickListener {
-            Toast.makeText(requireContext(), "AI Kişisel Özel Sayfası Açılacak", Toast.LENGTH_SHORT).show()
+            val targetView = view.findViewById<TextView>(R.id.titleKisisel)
+            mainScrollView.smoothScrollTo(0, targetView.top - 50)
         }
 
         // ====================================================================
-        // --- 3. DİNAMİK YAPAY ZEKA (PROMPT) YÖNLENDİRMELERİ ---
+        // --- DİNAMİK YAPAY ZEKA (PROMPT) YÖNLENDİRMELERİ ---
         // ====================================================================
 
-        // Kategori 1: Trendler (Motion -> Cinematic)
+        // Kategori 1: Trendler
         view.findViewById<CardView>(R.id.cardMotionControl)?.setOnClickListener {
             goToStudioWithStyle("Dynamic motion blur, neon stage lights, energetic performance vibe, highly detailed 8k", "Motion Control")
         }
@@ -59,7 +75,7 @@ class HomeFragment : Fragment() {
             goToStudioWithStyle("Cinematic lighting, dramatic rain effect, moody street aesthetic, 8k resolution, photorealistic", "Cinematic Render")
         }
 
-        // Kategori 2: İlham Verenler (Neon -> Mermer -> Ahşap)
+        // Kategori 2: İlham Verenler
         view.findViewById<CardView>(R.id.cardNeon)?.setOnClickListener {
             goToStudioWithStyle("Product bathed in vibrant neon pink and purple lights, dark cyberpunk club aesthetic, 8k commercial quality", "Neon Işıklar")
         }
@@ -70,7 +86,7 @@ class HomeFragment : Fragment() {
             goToStudioWithStyle("Product placed on a rustic wooden table, warm sunlight filtering through a window, cozy atmosphere, photorealistic", "Ahşap Zemin")
         }
 
-        // Kategori 3: AI İşletme (Kozmetik/Smoothie -> Podyum/Arıtma -> Kahve/Kanat)
+        // Kategori 3: AI İşletme
         view.findViewById<CardView>(R.id.cardCosmetic)?.setOnClickListener {
             goToStudioWithStyle("Dynamic splash photography of a cold strawberry beverage, floating fresh fruits, vibrant pink and red hues, studio commercial lighting, 8k", "Dinamik Sıçrama")
         }
@@ -81,7 +97,7 @@ class HomeFragment : Fragment() {
             goToStudioWithStyle("Creative beverage product shot, iced coffee cups with magical glowing wings, warm cafe ambiance, cinematic lighting, 8k", "Sihirli Ürün Çekimi")
         }
 
-        // Kategori 4: AI Kişisel (Cyberpunk -> Anime -> LinkedIn)
+        // Kategori 4: AI Kişisel
         view.findViewById<CardView>(R.id.cardCyberpunk)?.setOnClickListener {
             goToStudioWithStyle("Cyberpunk style character portrait, neon pink and blue city lights in the background, futuristic attire, highly detailed, Unreal Engine 5 render", "Cyberpunk Avatar")
         }
@@ -100,6 +116,8 @@ class HomeFragment : Fragment() {
         sharedPref.edit()
             .putString("SELECTED_STYLE", prompt)
             .putString("SELECTED_STYLE_NAME", styleName)
+            .remove("STUDIO_HAM_GORSEL") // Yeni konsepte geçince eski görseli temizle
+            .remove("STUDIO_URETILEN_GORSEL") // Eski üretimi temizle
             .apply()
 
         Toast.makeText(requireContext(), "$styleName konsepti seçildi!", Toast.LENGTH_SHORT).show()

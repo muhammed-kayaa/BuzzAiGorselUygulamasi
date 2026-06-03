@@ -8,15 +8,17 @@ import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+
 interface ApiService {
     @Multipart
     @POST("v2beta/stable-image/generate/sd3")
     suspend fun generateImage(
         @Header("Authorization") apiKey: String,
-        @Header("Accept") accept: String = "image/png",
+        @Header("Accept") accept: String = "image/*",
         @Part image: MultipartBody.Part,
         @Part("prompt") prompt: RequestBody,
-        @Part("mode") mode: RequestBody, // API bunu istiyor!
+        @Part("mode") mode: RequestBody,
+        @Part("strength") strength: RequestBody, // <-- YENİ ZORUNLU PARAMETRE BURADA
         @Part("output_format") outputFormat: RequestBody
     ): Response<ResponseBody>
 }

@@ -1,9 +1,7 @@
 package com.example.buzzai
 
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.ContentValues
-import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
@@ -16,20 +14,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.buzzai.databinding.FragmentResultBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ResultFragment : Fragment() {
 
     private var _binding: FragmentResultBinding? = null
     private val binding get() = _binding!!
 
-    // Gelen resmin yolu
     private var loadedImageUrl: String? = null
 
     override fun onCreateView(
@@ -44,7 +36,6 @@ class ResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Resmi Argument'ten al ve ekranda goster
         loadedImageUrl = arguments?.getString("imageUrl")
         if (!loadedImageUrl.isNullOrEmpty()) {
             Glide.with(requireContext())
@@ -52,11 +43,10 @@ class ResultFragment : Fragment() {
                 .into(binding.resultImageView)
         }
 
-        // --- İNDİR BUTONU TIKLANINCA ÇALIŞACAK KOD ---
+        // --- İNDİR BUTONU ---
         binding.btnDownload.setOnClickListener {
             val drawable = binding.resultImageView.drawable
             if (drawable != null) {
-                // Resmi hafızaya al
                 val bitmap = drawable.toBitmap()
                 saveImageToGallery(bitmap)
             } else {
@@ -64,28 +54,18 @@ class ResultFragment : Fragment() {
             }
         }
 
-        // Metin Üretme (Eski kodun birebir aynısı)
-        binding.btnGenerateCaption.setOnClickListener {
-            binding.btnGenerateCaption.isEnabled = false
-            binding.tvGenerated.text = "Yapay Zeka metni yazıyor... ⏳"
-
-            lifecycleScope.launch {
-                delay(2000)
-                val isInstagram = binding.rbInstagram.isChecked
-                val generatedCaption = generateCaption(isInstagram)
-                binding.tvGenerated.text = generatedCaption
-
-                val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val clip = ClipData.newPlainText("generated_caption", generatedCaption)
-                clipboard.setPrimaryClip(clip)
-
-                Toast.makeText(requireContext(), "Metin panoya kopyalandı! ✨", Toast.LENGTH_SHORT).show()
-                binding.btnGenerateCaption.isEnabled = true
+        // --- PAYLAŞ BUTONU ---
+        binding.btnShare.setOnClickListener {
+            val drawable = binding.resultImageView.drawable
+            if (drawable != null) {
+                val bitmap = drawable.toBitmap()
+                shareImage(bitmap)
+            } else {
+                Toast.makeText(requireContext(), "Görsel henüz yüklenmedi!", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    // Modern Android Sürümlerinde Galeriye Fotoğraf Kaydetme Fonksiyonu
     private fun saveImageToGallery(bitmap: Bitmap) {
         val filename = "BuzzAI_${System.currentTimeMillis()}.png"
         var fos: java.io.OutputStream? = null
@@ -94,7 +74,6 @@ class ResultFragment : Fragment() {
         val contentValues = ContentValues().apply {
             put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
             put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
-            // Android 10 ve üstü için resimler klasörünü belirtiyoruz
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/BuzzAI")
                 put(MediaStore.MediaColumns.IS_PENDING, 1)
@@ -112,30 +91,51 @@ class ResultFragment : Fragment() {
                     it.close()
                 }
 
-                // İndirme bittiyse bayrağı 0 yapıp resmi herkese görünür kıl
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     contentValues.clear()
                     contentValues.put(MediaStore.MediaColumns.IS_PENDING, 0)
                     contentResolver.update(uri, contentValues, null, null)
                 }
 
-                Toast.makeText(requireContext(), "Görsel başarıyla galeriye kaydedildi! 📸", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Görsel galeriye kaydedildi! 📸", Toast.LENGTH_LONG).show()
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            // Hata çıkarsa varsa yarım kalmış dosyayı sil
-            imageUri?.let { uri ->
-                contentResolver.delete(uri, null, null)
-            }
+            imageUri?.let { uri -> contentResolver.delete(uri, null, null) }
             Toast.makeText(requireContext(), "Kaydetme başarısız: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun generateCaption(isInstagram: Boolean): String {
-        return if (isInstagram) {
-            "✨ Yeni seviyeyi keşfet! ✨ This piece is everything I didn't know I needed — pure elegance meets functionality. 💎😍 The attention to detail is impeccable. Absolutely obsessed! 🖤 #LuxuryStyle #DesignedForSuccess #MustHaveProduct"
-        } else {
-            "WAIT— did you see this?? 😲 This product is literally INSANE! No cap, I'm so obsessed and you NEED this energy in your life! 🔥✨ #FYP #ForYouPage #Viral #TrendingNow #MustGet"
+    // Modern Paylaşım Fonksiyonu
+    private fun shareImage(bitmap: Bitmap) {
+        val filename = "BuzzAI_Share_${System.currentTimeMillis()}.png"
+        val contentValues = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+            put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/BuzzAI")
+            }
+        }
+
+        val contentResolver = requireContext().contentResolver
+        val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+
+        if (uri != null) {
+            try {
+                contentResolver.openOutputStream(uri)?.use { fos ->
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
+                }
+
+                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                    type = "image/png"
+                    putExtra(Intent.EXTRA_STREAM, uri)
+                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                }
+                startActivity(Intent.createChooser(shareIntent, "Görseli Paylaş"))
+
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "Paylaşım hatası: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

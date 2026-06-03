@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.buzzai.databinding.ItemHistoryBinding
 
-class HistoryAdapter(private var items: List<String>) : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
+class HistoryAdapter(
+    private var items: List<String>,
+    private val onItemClick: (String) -> Unit // Tıklanma olayını dışarı aktarmak için eklendi
+) : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
     inner class HistoryViewHolder(private val binding: ItemHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(url: String) {
@@ -14,6 +17,11 @@ class HistoryAdapter(private var items: List<String>) : RecyclerView.Adapter<His
                 .load(url)
                 .centerCrop()
                 .into(binding.ivHistoryItem)
+
+            // Resme Tıklandığında çalışacak kod
+            binding.root.setOnClickListener {
+                onItemClick(url)
+            }
         }
     }
 

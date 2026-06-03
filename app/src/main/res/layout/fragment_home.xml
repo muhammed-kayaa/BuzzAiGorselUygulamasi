@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#09090B"
@@ -14,7 +15,6 @@
         android:paddingTop="20dp"
         android:paddingBottom="40dp">
 
-        <!-- Üst Header -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="Ultra Plan"
+                android:text="Premium"
                 android:textAllCaps="false"
                 android:textColor="#A855F7"
                 app:backgroundTint="#1AA855F7"
@@ -39,7 +39,6 @@
                 app:strokeWidth="1dp" />
         </RelativeLayout>
 
-        <!-- 16:9 Dönen Video -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -54,7 +53,6 @@
                 android:layout_gravity="center" />
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Başlıklar -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,7 +69,6 @@
             android:textSize="12sp"
             android:textStyle="italic" />
 
-        <!-- 3'lü Devasa Kategori Butonları -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -167,8 +164,8 @@
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
-        <!-- 1. BÖLÜM: TRENDLER (motion -> cinematic) -->
         <TextView
+            android:id="@+id/titleTrendler"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
@@ -187,7 +184,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <!-- Motion -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardMotionControl"
                     android:layout_width="160dp"
@@ -204,7 +200,6 @@
                     </FrameLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Cinematic -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardCinematic"
                     android:layout_width="160dp"
@@ -224,7 +219,6 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-        <!-- 2. BÖLÜM: İLHAM VERENLER (neon -> mermer -> ahsap) -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -244,7 +238,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <!-- Neon -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardNeon"
                     android:layout_width="160dp"
@@ -261,7 +254,6 @@
                     </FrameLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Mermer -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardMarble"
                     android:layout_width="160dp"
@@ -278,7 +270,6 @@
                     </FrameLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Ahşap -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardWood"
                     android:layout_width="160dp"
@@ -298,8 +289,8 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-        <!-- 3. BÖLÜM: AI İŞLETME (kozmetik -> podyum -> kahve) -->
         <TextView
+            android:id="@+id/titleIsletme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
@@ -318,7 +309,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <!-- Kozmetik (Çilekli İçecek) -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardCosmetic"
                     android:layout_width="160dp"
@@ -335,7 +325,6 @@
                     </FrameLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Podyum (Su Arıtma) -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardPodium"
                     android:layout_width="160dp"
@@ -352,7 +341,6 @@
                     </FrameLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Kahve -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardCoffee"
                     android:layout_width="160dp"
@@ -372,8 +360,8 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-        <!-- 4. BÖLÜM: AI KİŞİSEL (cyberpunk -> anime -> linkedin) -->
         <TextView
+            android:id="@+id/titleKisisel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
@@ -392,7 +380,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <!-- Cyberpunk -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardCyberpunk"
                     android:layout_width="160dp"
@@ -409,7 +396,6 @@
                     </FrameLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Anime -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardAnime"
                     android:layout_width="160dp"
@@ -426,7 +412,6 @@
                     </FrameLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- LinkedIn -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardLinkedin"
                     android:layout_width="160dp"

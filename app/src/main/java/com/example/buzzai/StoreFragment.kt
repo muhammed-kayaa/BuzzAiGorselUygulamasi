@@ -14,8 +14,7 @@ class StoreFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentStoreBinding.inflate(inflater, container, false)
@@ -25,12 +24,19 @@ class StoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnBuyPro.setOnClickListener {
-            Toast.makeText(requireContext(), "Google Play altyapısı test aşamasında! 🚀", Toast.LENGTH_SHORT).show()
+        // 1. Basit Plan Butonu
+        binding.btnBasitPlan.setOnClickListener {
+            Toast.makeText(requireContext(), "Basit Plan: Google Play altyapısı test aşamasında! 🚀", Toast.LENGTH_SHORT).show()
         }
 
-        binding.btnWatchAd.setOnClickListener {
-            Toast.makeText(requireContext(), "Reklam yükleniyor... ⏳ (+1 Kredi)", Toast.LENGTH_SHORT).show()
+        // 2. Kişisel Plan Butonu
+        binding.btnKisiselPlan.setOnClickListener {
+            Toast.makeText(requireContext(), "Kişisel Plan: Google Play altyapısı test aşamasında! 🚀", Toast.LENGTH_SHORT).show()
+        }
+
+        // 3. İşletme Planı Butonu
+        binding.btnIsletmePlani.setOnClickListener {
+            Toast.makeText(requireContext(), "İşletme Planı: Google Play altyapısı test aşamasında! 🚀", Toast.LENGTH_SHORT).show()
         }
     }
 

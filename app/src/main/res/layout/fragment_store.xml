@@ -1,102 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#09090B"
-    android:padding="16dp">
+    android:background="#09090B">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Premium"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:layout_marginBottom="24dp" />
-
-    <com.google.android.material.card.MaterialCardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="16dp"
-        app:cardBackgroundColor="#2A1B38"
-        app:strokeColor="#A855F7"
-        app:strokeWidth="1dp"
-        android:layout_marginBottom="16dp">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <LinearLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Premium Paketler"
+            android:textSize="28sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp"
+            android:layout_marginStart="4dp" />
+
+        <!-- 1. BASİT PLAN (MAVİ KONSEPT) -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="#141419"
+            app:cardCornerRadius="16dp"
+            app:strokeWidth="1.5dp"
+            app:strokeColor="#3B82F6"
+            app:cardElevation="0dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="👑 BuzzAI Pro"
-                android:textColor="#FBBF24"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_marginBottom="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sınırsız hyper-realistic üretim, yüksek çözünürlüklü cinematic dışa aktarım ve öncelikli sunucu erişimi ile içerik stratejilerinizi hızlandırın."
-                android:textColor="#D1D5DB"
-                android:textSize="14sp"
-                android:layout_marginBottom="16dp" />
-
-            <Button
-                android:id="@+id/btnBuyPro"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#A855F7"
-                android:text="Aylık 99.90 TL"
-                android:textColor="#FFFFFF" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+                android:orientation="vertical"
+                android:padding="20dp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="16dp"
-        app:cardBackgroundColor="#141419">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🥉 Basit Plan"
+                    android:textColor="#3B82F6"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="12dp"/>
 
-        <LinearLayout
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Günlük 50 üretim kredisi, standart çözünürlükte dışa aktarım ve temel yapay zeka modelleriyle sosyal medya içeriklerinizi hızlandırmak için idealdir. Sisteme standart öncelikli giriş sağlar."
+                    android:textColor="#A0A0A0"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp"
+                    android:layout_marginBottom="16dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBasitPlan"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="Aylık 250 TL"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#3B82F6"
+                    app:cornerRadius="12dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 2. KİŞİSEL PLAN (MOR KONSEPT) -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:gravity="center">
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="#141419"
+            app:cardCornerRadius="16dp"
+            app:strokeWidth="1.5dp"
+            app:strokeColor="#A855F7"
+            app:cardElevation="0dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🎥 Kredin mi Bitti?"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_marginBottom="8dp" />
+                android:orientation="vertical"
+                android:padding="20dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🥈 Kişisel Plan"
+                    android:textColor="#A855F7"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="12dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sınırsız hyper-realistic üretim, yüksek çözünürlüklü cinematic dışa aktarım ve viral potansiyeli yüksek Reels konseptleri oluşturmak için öncelikli sunucu erişimi içerir. Tasarımlarda su izi (watermark) bulunmaz."
+                    android:textColor="#E9D5FF"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp"
+                    android:layout_marginBottom="16dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnKisiselPlan"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="Aylık 500 TL"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#A855F7"
+                    app:cornerRadius="12dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 3. İŞLETME PLANI (ALTIN/TURUNCU KONSEPT) -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardBackgroundColor="#141419"
+            app:cardCornerRadius="16dp"
+            app:strokeWidth="1.5dp"
+            app:strokeColor="#F59E0B"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kısa bir reklam izleyerek anında +1 üretim kredisi kazan ve sosyal medya paylaşımlarına kaldığın yerden devam et."
-                android:textColor="#9CA3AF"
-                android:textSize="14sp"
-                android:textAlignment="center"
-                android:layout_marginBottom="16dp" />
+                android:orientation="vertical"
+                android:padding="20dp">
 
-            <Button
-                android:id="@+id/btnWatchAd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#374151"
-                android:text="Reklam İzle"
-                android:textColor="#FFFFFF" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🥇 İşletme Planı"
+                    android:textColor="#F59E0B"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="12dp"/>
 
-</LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Reklam ajansları ve markalar için tam ticari lisans, özel 3D maskot tasarımı altyapısı, ürün fotoğrafçılığı için stüdyo kalitesinde 4K render desteği ve sınırsız, anında sunucu yanıt süresi içerir."
+                    android:textColor="#FEF3C7"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp"
+                    android:layout_marginBottom="16dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnIsletmePlani"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="Aylık 1000 TL"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#F59E0B"
+                    app:cornerRadius="12dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</ScrollView>

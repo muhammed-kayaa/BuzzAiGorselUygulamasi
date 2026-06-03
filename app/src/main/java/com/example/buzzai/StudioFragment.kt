@@ -45,32 +45,11 @@ class StudioFragment : Fragment() {
         if (uri != null) {
             selectedImageUri = uri
             binding.imageView.setImageURI(uri)
+
+            // Seçilen ham görseli hafızaya kaydet
+            val sharedPref = requireActivity().getSharedPreferences("BuzzAI_Prefs", Context.MODE_PRIVATE)
+            sharedPref.edit().putString("STUDIO_HAM_GORSEL", uri.toString()).apply()
         }
-    }
-
-    private fun ensureCreditsUpToDate(prefs: android.content.SharedPreferences) {
-        val cal = Calendar.getInstance()
-        val todayYear = cal.get(Calendar.YEAR)
-        val todayDay = cal.get(Calendar.DAY_OF_YEAR)
-        val lastYear = prefs.getInt("CREDITS_LAST_YEAR", -1)
-        val lastDay = prefs.getInt("CREDITS_LAST_DAY_OF_YEAR", -1)
-
-        if (lastYear != todayYear || lastDay != todayDay) {
-            prefs.edit().putInt("DAILY_CREDITS", 3)
-                .putInt("CREDITS_LAST_YEAR", todayYear)
-                .putInt("CREDITS_LAST_DAY_OF_YEAR", todayDay).apply()
-        }
-    }
-
-    private fun decrementCredit(prefs: android.content.SharedPreferences) {
-        val current = prefs.getInt("DAILY_CREDITS", 3)
-        prefs.edit().putInt("DAILY_CREDITS", (current - 1).coerceAtLeast(0)).apply()
-    }
-
-    private fun saveToHistory(prefs: android.content.SharedPreferences, uri: String) {
-        val currentHistory = prefs.getString("BUZZAI_HISTORY", "") ?: ""
-        val newHistory = if (currentHistory.isEmpty()) uri else "$uri,$currentHistory"
-        prefs.edit().putString("BUZZAI_HISTORY", newHistory).apply()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -82,8 +61,61 @@ class StudioFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val sharedPref = requireActivity().getSharedPreferences("BuzzAI_Prefs", Context.MODE_PRIVATE)
 
+        // Konsepti, ham görseli ve üretilen görseli hafızadan oku ve ekrana bas (Fil Hafızası)
+        fun restoreStudioState() {
+            val savedStylePromptPref = sharedPref.getString("SELECTED_STYLE", null)
+            val savedStyleNamePref = sharedPref.getString("SELECTED_STYLE_NAME", "Serbest Üretim")
+
+            binding.tvActiveStyleName.text = savedStyleNamePref
+            selectedStylePrompt = savedStylePromptPref ?: "Cinematic high-end product photography"
+
+            val hamGorselString = sharedPref.getString("STUDIO_HAM_GORSEL", null)
+            if (hamGorselString != null) {
+                selectedImageUri = Uri.parse(hamGorselString)
+                binding.imageView.setImageURI(selectedImageUri)
+            } else {
+                binding.imageView.setImageDrawable(null)
+            }
+
+            val uretilenGorselString = sharedPref.getString("STUDIO_URETILEN_GORSEL", null)
+            if (uretilenGorselString != null) {
+                binding.layoutResult.isVisible = true
+                binding.ivResult.setImageURI(Uri.parse(uretilenGorselString))
+            } else {
+                binding.layoutResult.isVisible = false
+            }
+        }
+
+        restoreStudioState()
+
+        // YENİLE/SIFIRLA BUTONU (Hafızayı temizler ve ekranı sıfırlar)
+        binding.btnRefreshConcept.setOnClickListener {
+            sharedPref.edit()
+                .remove("SELECTED_STYLE")
+                .remove("SELECTED_STYLE_NAME")
+                .remove("STUDIO_HAM_GORSEL")
+                .remove("STUDIO_URETILEN_GORSEL")
+                .apply()
+
+            selectedImageUri = null
+            restoreStudioState()
+            Toast.makeText(requireContext(), "Stüdyo Sıfırlandı!", Toast.LENGTH_SHORT).show()
+        }
+
         binding.pickImageButton.setOnClickListener {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        }
+
+        // Sonuca tıklayınca büyüt (hide & add tekniği ile sayfa ölmez)
+        binding.cardResult.setOnClickListener {
+            val uretilenGorselString = sharedPref.getString("STUDIO_URETILEN_GORSEL", null)
+            if (uretilenGorselString != null) {
+                parentFragmentManager.beginTransaction()
+                    .hide(this@StudioFragment)
+                    .add(R.id.fragment_container, ResultFragment().apply { arguments = bundleOf("imageUrl" to uretilenGorselString) })
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
 
         binding.sendImageButton.setOnClickListener {
@@ -111,18 +143,19 @@ class StudioFragment : Fragment() {
                     val stream = ByteArrayOutputStream()
                     resizedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
                     val requestFile = stream.toByteArray().toRequestBody("image/png".toMediaTypeOrNull())
-                    // İstek hazırlığı
+
                     val imagePart = MultipartBody.Part.createFormData("image", "image.png", requestFile)
                     val promptReq = selectedStylePrompt.toRequestBody("text/plain".toMediaTypeOrNull())
-                    val modeReq = "image-to-image".toRequestBody("text/plain".toMediaTypeOrNull()) // Burası çok kritik!
+                    val modeReq = "image-to-image".toRequestBody("text/plain".toMediaTypeOrNull())
+                    val strengthReq = "0.45".toRequestBody("text/plain".toMediaTypeOrNull()) // Strength düşürüldü ki kedi kediye benzesin
                     val outputFormatReq = "png".toRequestBody("text/plain".toMediaTypeOrNull())
 
-// İstek atıyoruz (Mode parametresini ekledik)
                     val response = RetrofitClient.instance.generateImage(
                         apiKey = API_KEY,
                         image = imagePart,
                         prompt = promptReq,
-                        mode = modeReq, // <--- API'nin istediği parametre buraya geldi
+                        mode = modeReq,
+                        strength = strengthReq,
                         outputFormat = outputFormatReq
                     )
 
@@ -134,13 +167,16 @@ class StudioFragment : Fragment() {
                             val resultUri = Uri.fromFile(resultFile).toString()
 
                             saveToHistory(sharedPref, resultUri)
+
+                            // Üretilen görseli Studio hafızasına da ekle
+                            sharedPref.edit().putString("STUDIO_URETILEN_GORSEL", resultUri).apply()
+
                             binding.layoutResult.isVisible = true
                             binding.ivResult.setImageURI(Uri.parse(resultUri))
-                            binding.cardResult.setOnClickListener {
-                                parentFragmentManager.beginTransaction()
-                                    .replace(R.id.fragment_container, ResultFragment().apply { arguments = bundleOf("imageUrl" to resultUri) })
-                                    .addToBackStack(null).commit()
-                            }
+
+                            val savedStyleName = sharedPref.getString("SELECTED_STYLE_NAME", "Serbest Üretim")
+                            Toast.makeText(requireContext(), "$savedStyleName başarıyla uygulandı!", Toast.LENGTH_LONG).show()
+
                         } else {
                             val errorMsg = response.errorBody()?.string() ?: "Hata: ${response.code()}"
                             Toast.makeText(requireContext(), "SD3 Hatası: $errorMsg", Toast.LENGTH_LONG).show()
@@ -157,6 +193,31 @@ class StudioFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun ensureCreditsUpToDate(prefs: android.content.SharedPreferences) {
+        val cal = Calendar.getInstance()
+        val todayYear = cal.get(Calendar.YEAR)
+        val todayDay = cal.get(Calendar.DAY_OF_YEAR)
+        val lastYear = prefs.getInt("CREDITS_LAST_YEAR", -1)
+        val lastDay = prefs.getInt("CREDITS_LAST_DAY_OF_YEAR", -1)
+
+        if (lastYear != todayYear || lastDay != todayDay) {
+            prefs.edit().putInt("DAILY_CREDITS", 3)
+                .putInt("CREDITS_LAST_YEAR", todayYear)
+                .putInt("CREDITS_LAST_DAY_OF_YEAR", todayDay).apply()
+        }
+    }
+
+    private fun decrementCredit(prefs: android.content.SharedPreferences) {
+        val current = prefs.getInt("DAILY_CREDITS", 3)
+        prefs.edit().putInt("DAILY_CREDITS", (current - 1).coerceAtLeast(0)).apply()
+    }
+
+    private fun saveToHistory(prefs: android.content.SharedPreferences, uri: String) {
+        val currentHistory = prefs.getString("BUZZAI_HISTORY", "") ?: ""
+        val newHistory = if (currentHistory.isEmpty()) uri else "$uri,$currentHistory"
+        prefs.edit().putString("BUZZAI_HISTORY", newHistory).apply()
     }
 
     private fun getBitmapFromUri(uri: Uri): Bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
