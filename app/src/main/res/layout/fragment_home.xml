@@ -1,268 +1,450 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#09090B"
-    tools:context=".HomeFragment">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:paddingHorizontal="16dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="40dp">
 
+        <!-- Üst Header -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp">
-
+            android:layout_marginBottom="20dp">
             <ImageView
-                android:id="@+id/menuIcon"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_centerVertical="true"
                 android:src="@android:drawable/ic_menu_sort_by_size"
                 app:tint="#FFFFFF" />
-
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnUltraPlan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                app:cardBackgroundColor="#1A1A24"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="8dp"
-                    android:text="Ultra Plan"
-                    android:textColor="#A855F7"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-            </androidx.cardview.widget.CardView>
+                android:text="Ultra Plan"
+                android:textAllCaps="false"
+                android:textColor="#A855F7"
+                app:backgroundTint="#1AA855F7"
+                app:cornerRadius="20dp"
+                app:strokeColor="#33A855F7"
+                app:strokeWidth="1dp" />
         </RelativeLayout>
 
-        <androidx.cardview.widget.CardView
+        <!-- 16:9 Dönen Video -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:layout_marginBottom="24dp"
-            app:cardBackgroundColor="#141023"
-            app:cardCornerRadius="24dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="#16161D"
+            app:cardCornerRadius="16dp"
             app:cardElevation="0dp">
-
-            <FrameLayout
+            <VideoView
+                android:id="@+id/videoPlayer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_gravity="center" />
+        </com.google.android.material.card.MaterialCardView>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@android:color/transparent" />
+        <!-- Başlıklar -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BuzzAI 2.0 Strategy"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="Şimdi Kullanılabilir"
+            android:textColor="#A855F7"
+            android:textSize="12sp"
+            android:textStyle="italic" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:background="#88000000"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="BuzzAI 3.0 Omni"
-                        android:textColor="#FFFFFF"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Şimdi Kullanılabilir"
-                        android:textColor="#A855F7"
-                        android:textSize="14sp"
-                        android:textStyle="italic" />
-                </LinearLayout>
-            </FrameLayout>
-        </androidx.cardview.widget.CardView>
-
+        <!-- 3'lü Devasa Kategori Butonları -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginBottom="32dp"
+            android:baselineAligned="false"
             android:orientation="horizontal"
-            android:weightSum="3">
+            android:weightSum="3"
+            android:layout_marginBottom="30dp">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardStrategy"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                app:cardBackgroundColor="#141419"
-                app:cardCornerRadius="20dp"
+                android:layout_marginEnd="8dp"
+                app:cardBackgroundColor="#16161D"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="0dp">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical">
-
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@android:drawable/ic_menu_rotate"
+                        android:src="@android:drawable/ic_popup_sync"
                         app:tint="#A855F7" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="3.0 Omni"
+                        android:text="2.0 Strategy"
                         android:textColor="#FFFFFF"
-                        android:textSize="13sp" />
+                        android:textSize="11sp" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardBusiness"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                app:cardBackgroundColor="#141419"
-                app:cardCornerRadius="20dp"
+                android:layout_marginEnd="8dp"
+                app:cardBackgroundColor="#16161D"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="0dp">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical">
-
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:src="@android:drawable/ic_menu_camera"
                         app:tint="#A855F7" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="AI Görsel"
+                        android:text="AI İşletme"
                         android:textColor="#FFFFFF"
-                        android:textSize="13sp" />
+                        android:textSize="11sp" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardPersonal"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                app:cardBackgroundColor="#141419"
-                app:cardCornerRadius="20dp"
+                app:cardBackgroundColor="#16161D"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="0dp">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical">
-
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:src="@android:drawable/ic_media_play"
                         app:tint="#A855F7" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="AI Video"
+                        android:text="AI Kişisel"
                         android:textColor="#FFFFFF"
-                        android:textSize="13sp" />
+                        android:textSize="11sp" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <!-- 1. BÖLÜM: TRENDLER (motion -> cinematic) -->
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Trendler ✨"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:src="@android:drawable/ic_media_next"
-                app:tint="#888888" />
-        </RelativeLayout>
+            android:layout_marginBottom="12dp"
+            android:text="Trendler ✨"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none">
-
+            android:scrollbars="none"
+            android:layout_marginBottom="30dp">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <androidx.cardview.widget.CardView
+                <!-- Motion -->
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardMotionControl"
-                    android:layout_width="150dp"
-                    android:layout_height="200dp"
-                    android:layout_marginEnd="16dp"
-                    app:cardBackgroundColor="#1A1A24"
+                    android:layout_width="160dp"
+                    android:layout_height="220dp"
+                    android:layout_marginEnd="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="0dp">
+                    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                        <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:src="@drawable/trend_motion" />
+                        <View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#66000000" />
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="bottom" android:gravity="center" android:padding="16dp" android:text="Motion Control" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+                    </FrameLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|center_horizontal"
-                        android:layout_marginBottom="16dp"
-                        android:text="Motion Control"
-                        android:textColor="#FFFFFF"
-                        android:textSize="14sp" />
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
+                <!-- Cinematic -->
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardCinematic"
-                    android:layout_width="150dp"
-                    android:layout_height="200dp"
-                    android:layout_marginEnd="16dp"
-                    app:cardBackgroundColor="#1A1A24"
+                    android:layout_width="160dp"
+                    android:layout_height="220dp"
+                    android:layout_marginEnd="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="0dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|center_horizontal"
-                        android:layout_marginBottom="16dp"
-                        android:text="Cinematic Render"
-                        android:textColor="#FFFFFF"
-                        android:textSize="14sp" />
-                </androidx.cardview.widget.CardView>
+                    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                        <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:src="@drawable/trend_cinematic" />
+                        <View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#66000000" />
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="bottom" android:gravity="center" android:padding="16dp" android:text="Cinematic Render" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+                    </FrameLayout>
+                </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
         </HorizontalScrollView>
+
+        <!-- 2. BÖLÜM: İLHAM VERENLER (neon -> mermer -> ahsap) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="İlham Verenler 🚀"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:layout_marginBottom="30dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Neon -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardNeon"
+                    android:layout_width="160dp"
+                    android:layout_height="220dp"
+                    android:layout_marginEnd="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
+                    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                        <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:src="@drawable/ilham_neon" />
+                        <View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#66000000" />
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="bottom" android:gravity="center" android:padding="16dp" android:text="Neon Işıklar" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+                    </FrameLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Mermer -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardMarble"
+                    android:layout_width="160dp"
+                    android:layout_height="220dp"
+                    android:layout_marginEnd="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
+                    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                        <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:src="@drawable/ilham_mermer" />
+                        <View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#66000000" />
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="bottom" android:gravity="center" android:padding="16dp" android:text="Lüks Mermer" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+                    </FrameLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Ahşap -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardWood"
+                    android:layout_width="160dp"
+                    android:layout_height="220dp"
+                    android:layout_marginEnd="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
+                    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                        <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:src="@drawable/ilham_ahsap" />
+                        <View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#66000000" />
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="bottom" android:gravity="center" android:padding="16dp" android:text="Ahşap Zemin" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+                    </FrameLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- 3. BÖLÜM: AI İŞLETME (kozmetik -> podyum -> kahve) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="AI İşletme 🏢"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:layout_marginBottom="30dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Kozmetik (Çilekli İçecek) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardCosmetic"
+                    android:layout_width="160dp"
+                    android:layout_height="220dp"
+                    android:layout_marginEnd="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
+                    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                        <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:src="@drawable/isletme_kozmetik" />
+                        <View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#66000000" />
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="bottom" android:gravity="center" android:padding="16dp" android:text="Dinamik Sıçrama" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+                    </FrameLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Podyum (Su Arıtma) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardPodium"
+                    android:layout_width="160dp"
+                    android:layout_height="220dp"
+                    android:layout_marginEnd="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
+                    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                        <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:src="@drawable/isletme_podyum" />
+                        <View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#66000000" />
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="bottom" android:gravity="center" android:padding="16dp" android:text="Fütüristik Podyum" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+                    </FrameLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Kahve -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardCoffee"
+                    android:layout_width="160dp"
+                    android:layout_height="220dp"
+                    android:layout_marginEnd="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
+                    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                        <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:src="@drawable/isletme_kahve" />
+                        <View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#66000000" />
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="bottom" android:gravity="center" android:padding="16dp" android:text="Sihirli Ürün Çekimi" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+                    </FrameLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- 4. BÖLÜM: AI KİŞİSEL (cyberpunk -> anime -> linkedin) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="AI Kişisel 👤"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:layout_marginBottom="30dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Cyberpunk -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardCyberpunk"
+                    android:layout_width="160dp"
+                    android:layout_height="220dp"
+                    android:layout_marginEnd="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
+                    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                        <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:src="@drawable/kisisel_cyberpunk" />
+                        <View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#66000000" />
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="bottom" android:gravity="center" android:padding="16dp" android:text="Cyberpunk Avatar" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+                    </FrameLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Anime -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardAnime"
+                    android:layout_width="160dp"
+                    android:layout_height="220dp"
+                    android:layout_marginEnd="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
+                    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                        <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:src="@drawable/kisisel_anime" />
+                        <View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#66000000" />
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="bottom" android:gravity="center" android:padding="16dp" android:text="Anime Karakter" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+                    </FrameLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- LinkedIn -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardLinkedin"
+                    android:layout_width="160dp"
+                    android:layout_height="220dp"
+                    android:layout_marginEnd="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
+                    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                        <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:src="@drawable/kisisel_linkedin" />
+                        <View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#66000000" />
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="bottom" android:gravity="center" android:padding="16dp" android:text="LinkedIn Profil" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+                    </FrameLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

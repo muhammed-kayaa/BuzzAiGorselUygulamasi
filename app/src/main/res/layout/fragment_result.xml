@@ -11,71 +11,82 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- HATA 1 ÇÖZÜLDÜ: #111 rengi 6 haneli #111111 yapıldı -->
-        <ImageView
-            android:id="@+id/resultImageView"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:scaleType="centerCrop"
-            android:contentDescription="Generated image"
-            android:background="#111111" />
+            android:layout_height="350dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#111111">
+
+            <ImageView
+                android:id="@+id/resultImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:contentDescription="Generated image" />
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:gravity="center_vertical">
 
-            <!-- HATA 2 ÇÖZÜLDÜ: ImageButton yerine daha stabil olan ImageView kullanıldı -->
-            <ImageView
-                android:id="@+id/backButton"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:contentDescription="Geri"
-                android:background="#66000000"
-                android:padding="10dp"
-                android:src="@android:drawable/ic_menu_revert"
-                app:tint="#FFFFFF" />
+            <Button
+                android:id="@+id/btnDownload"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:backgroundTint="#16161D"
+                android:text="Galeriye İndir"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                app:cornerRadius="12dp"
+                app:icon="@android:drawable/stat_sys_download"
+                app:iconTint="#A855F7" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
             <RadioGroup
                 android:id="@+id/rgPlatform"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="16dp">
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/rbInstagram"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Instagram"
+                    android:text="Insta"
                     android:textColor="#FFFFFF"
-                    android:buttonTint="#FFFFFF"
+                    android:buttonTint="#A855F7"
                     android:checked="true" />
 
                 <RadioButton
                     android:id="@+id/rbTikTok"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:buttonTint="#FFFFFF"
+                    android:layout_marginStart="8dp"
+                    android:buttonTint="#A855F7"
                     android:text="TikTok"
                     android:textColor="#FFFFFF" />
-
             </RadioGroup>
-
         </LinearLayout>
 
         <Button
             android:id="@+id/btnGenerateCaption"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:backgroundTint="#A855F7"
             android:text="Yapay Zeka ile Metin Yaz"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:cornerRadius="12dp" />
 
         <TextView
             android:id="@+id/tvGenerated"
@@ -83,10 +94,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:padding="12dp"
-            android:background="#121217"
+            android:textSize="14sp"
+            android:padding="16dp"
+            android:background="@drawable/rounded_bg_dark"
             android:text="" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="60dp" />
 
     </LinearLayout>
 
